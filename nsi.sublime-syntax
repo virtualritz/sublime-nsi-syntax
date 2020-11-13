@@ -1,0 +1,59 @@
+%YAML 1.2
+---
+name: Nodal Scene Interface
+file_extensions: [nsi]
+scope: source.nsi
+
+contexts:
+  main:
+    - include: array
+    - include: comment
+    - include: keyword
+    - include: numbers
+    - include: type-string
+    - include: node-type-string
+    - include: common-connection-string
+    - include: string
+  array:
+    - include: array-op
+    - include: array-constant
+  array-op:
+    - match: (:)
+      scope: keyword.operator.array.nsi
+  array-constant:
+    - match: \[\]
+      scope: constant.other.nsi
+  comment:
+    - match: \#.*
+      scope: comment.line.nsi
+  keyword:
+    - match: \b(Create|Connect|Disconnect|Delete|DeleteAttribute|Evaluate|RenderControl|SetAttribute|SetAttributeAtTime)\b
+      scope: keyword.command.nsi
+  numbers:
+    - match: \b([0-9]+|0([xX][0-9a-fA-F]+|[oO][0-7]+))\b
+      scope: constant.numeric.nsi
+    - match: \b([0-9]+\.[0-9]+([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)\b
+      scope: constant.numeric.float.nsi
+  type-string:
+    - match: ("color("|\[[0-9]+\]")|"double("|\[[0-9]+\]")|"doublematrix("|\[[0-9]+\]")|"float("|\[[0-9]+\]")|"int("|\[[0-9]+\]")|"matrix("|\[[0-9]+\]")|"normal("|\[[0-9]+\]")|"string("|\[[0-9]+\]")|"vector("|\[[0-9]+\]"))
+      scope: entity.name.type.nsi
+  node-type-string:
+    - match: (".root"|".global"|"set"|"shader"|"attributes"|"transform"|"instances"|"plane"|"mesh"|"faceset"|"curves"|"particles"|"procedural"|"volume"|"environment"|"camera"|"orthographiccamera"|"perspectivecamera"|"fisheyecamera"|"cylindricalcamera"|"sphericalcamera"|"outputdriver"|"outputlayer"|"screen")
+      scope: support.constant.nsi
+  common-connection-string:
+    - match: ("displacementshader"|"geometryattributes"|"lensshader"|"objects"|"outputdrivers"|"outputlayers"|"screens"|"volumeshader")
+      scope: variable.other.nsi
+  string:
+    - match: (\")
+      captures:
+        0: punctuation.definition.string.begin.nsi
+      push:
+        - meta_scope: string.quoted.double.nsi
+        - match: (\")
+          captures:
+            0: punctuation.definition.string.end.nsi
+          pop: true
+        - include: strings-escapes
+  strings-escapes:
+    - match: '\\(''|\"|\\|/|b|f|n|r|t|v|0|u[0-9a-fA-F]{4})'
+      scope: constant.character.escape
