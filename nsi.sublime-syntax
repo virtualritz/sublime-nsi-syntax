@@ -41,7 +41,7 @@ contexts:
     - match: (".root"|".global"|"set"|"shader"|"attributes"|"transform"|"instances"|"plane"|"mesh"|"faceset"|"curves"|"particles"|"procedural"|"volume"|"environment"|"camera"|"orthographiccamera"|"perspectivecamera"|"fisheyecamera"|"cylindricalcamera"|"sphericalcamera"|"outputdriver"|"outputlayer"|"screen")
       scope: support.constant.nsi
   common-connection-string:
-    - match: ("displacementshader"|"geometryattributes"|"lensshader"|"objects"|"outputdrivers"|"outputlayers"|"screens"|"volumeshader")
+    - match: ("displacementshader"|"geometryattributes"|"lensshader"|"objects"|"outputdrivers"|"outputlayers"|"surfaceshader"|"screens"|"volumeshader")
       scope: variable.other.nsi
   string:
     - match: (\")
