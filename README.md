@@ -1,4 +1,4 @@
-# Sublime ɴsɪ Syntax
+# Sublime ɴꜱɪ Syntax
 
 [Nsɪ](https://nsi.readthedocs.io/) syntax support for [Sublime Text](www.sublimetext.com).
 
